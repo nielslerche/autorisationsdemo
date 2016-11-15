@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>Jobbr</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='semantic.min.css') }}">
+  <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='semantic.min.js') }}"></script>
+</head>
+<body>
+  <div class="ui fixed top menu">
+    <div class="ui container">
+      <a href="{{ url_for('home') }}" class="ui blue header item">
+        Jobbr
+      </a>
+      {% if g.user.is_authenticated %}
+        <a href="{{ url_for('profile') }}" class="item">Profile</a>
+      {% endif %}
+      <div class="right menu">
+        {% if g.user.is_authenticated %}
+          <a href="{{ url_for('logout') }}" class="item">Logout</a>
+        {% else  %}   
+          <a href="{{ url_for('login') }}" class="item">Login</a>
+          <a href="{{ url_for('register') }}" class="item">Register</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="ui container" style="padding-top: 60px;">
+    <div class="ui one column center aligned grid">
+      <div class="ten wide column">
+        {% with errors = get_flashed_messages() %}
+        {% if errors %}
+        <div class="ui negative message">
+          {% for error in errors %}
+          <p>{{ error }}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+      </div>
+    </div>
+    {% block content %}
+    {% endblock %}
+  </div>
+</body>
+</html>

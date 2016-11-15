@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+{% from '_formhelpers.html' import render_field %}
+{% block content %}
+<div class="ui one column center aligned grid">
+  <div class="ten wide column">
+    <form action="{{ url_for('login') }}" method="POST" class="ui form segment">
+      {{ form.csrf_token }}
+      <div class="field">
+        {{ render_field(form.email) }}
+      </div>
+      <div class="field">
+        {{ render_field(form.password) }}
+      </div>
+      <div class="field">
+        <button class="ui primary submit button">Register</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
