@@ -65,13 +65,12 @@ def login():
 #   login_user(registered_user)
 #   return redirect(request.args.get('next') or url_for('home'))
 
-""" DEPRECATED """
-# @app.route('/auth/logout')
-# @login_required
-# def logout():
-#   logout_user()
-#   flash(u'You have logged out.', 'info')
-#   return redirect(url_for('home'))
+@app.route('/logout')
+@login_required
+def logout():
+  logout_user()
+  flash(u'You have logged out.', 'info')
+  return redirect(url_for('home'))
 
 @app.route('/profile')
 @login_required
