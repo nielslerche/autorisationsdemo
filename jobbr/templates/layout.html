@@ -9,7 +9,7 @@
   <script src="{{ url_for('static', filename='semantic.min.js') }}"></script>
 </head>
 <body>
-  <div class="ui fixed top menu">
+  <div class="ui top menu">
     <div class="ui container">
       <a href="{{ url_for('home') }}" class="ui blue header item">
         Jobbr
@@ -27,20 +27,16 @@
       </div>
     </div>
   </div>
-  <div class="ui container" style="padding-top: 60px;">
-    <div class="ui one column center aligned grid">
-      <div class="ten wide column">
-        {% with errors = get_flashed_messages() %}
-        {% if errors %}
-        <div class="ui negative message">
-          {% for error in errors %}
-          <p>{{ error }}</p>
-          {% endfor %}
-        </div>
-        {% endif %}
-        {% endwith %}
+  <div class="ui container">
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+      {% for category, message in messages %}
+      <div class="ui {{ category }} message">
+        <p>{{ message }}</p>
       </div>
-    </div>
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
     {% block content %}
     {% endblock %}
   </div>

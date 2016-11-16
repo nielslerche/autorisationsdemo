@@ -24,6 +24,7 @@ def register():
     user = User(form.first_name.data, form.last_name.data, form.email.data, form.password.data)
     db.session.add(user)
     db.session.commit()
+    flash(u'Your user has successfully been registered. You can login now.', 'success')
     return redirect(url_for('login'))
     
   return render_template('register.html', form=form)
@@ -41,12 +42,13 @@ def login():
     UGLY:   Mangler D.R.Y.
     """
     if user is None:
-      flash(u'Could not find a user with that Email Address and Password combination.')
+      flash(u'Could not find a user with that Email Address and Password combination.', 'negative')
       return redirect(url_for('login'))
     if not user.check_password(form.password.data):
-      flash(u'Could not find a user with that Email Address and Password combination.')
+      flash(u'Could not find a user with that Email Address and Password combination.', 'negative')
       return redirect(url_for('login'))
     login_user(user)
+    flash(u'You have successfully logged in.', 'info')
     redirect(url_for('home'))
   return render_template('login.html', form=form)
 
